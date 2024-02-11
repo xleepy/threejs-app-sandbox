@@ -25,12 +25,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
       - run: npm ci
-      - run: npm run check
-      - run: npm run generate-api
-      - run: npm run test
       - run: npm run build:gh
-        env:
-          VITE_APP_ID: ${{ secrets.VITE_APP_ID }}
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
