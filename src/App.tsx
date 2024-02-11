@@ -32,7 +32,7 @@ const Box = ({ position }: BoxProps) => {
     setHover(false);
   }, []);
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     const { current } = meshRef;
     if (!current) {
       return;
