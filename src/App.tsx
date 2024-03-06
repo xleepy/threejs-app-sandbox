@@ -1,7 +1,7 @@
 // import { useCallback, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Luma } from "./Luma";
-import { Stats } from "@react-three/drei";
+import { Stats, OrbitControls } from "@react-three/drei";
 import "./App.css";
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
       <Box />
       */}
       <Luma />
+      <OrbitControls />
       <Stats />
     </Canvas>
   );

@@ -1,4 +1,4 @@
-import { Object3DNode, extend, useFrame } from "@react-three/fiber";
+import { Object3DNode, extend } from "@react-three/fiber";
 import { LumaSplatsThree, LumaSplatsSemantics } from "@lumaai/luma-web";
 import { useRef } from "react";
 import { isMobile } from "./helpers";
@@ -18,13 +18,6 @@ const mask = isMobile()
 
 export function Luma() {
   const lumaRef = useRef<LumaSplatsThree>(null);
-  useFrame((_, delta) => {
-    const { current } = lumaRef;
-    if (!current) {
-      return;
-    }
-    current.rotation.y += delta;
-  });
   return (
     <lumaSplats
       ref={lumaRef}
