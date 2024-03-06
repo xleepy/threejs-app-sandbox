@@ -1,6 +1,7 @@
 import { Object3DNode, extend, useFrame } from "@react-three/fiber";
 import { LumaSplatsThree, LumaSplatsSemantics } from "@lumaai/luma-web";
 import { useRef } from "react";
+import { isMobile } from "./helpers";
 // Make LumaSplatsThree available to R3F
 extend({ LumaSplats: LumaSplatsThree });
 
@@ -10,6 +11,10 @@ declare module "@react-three/fiber" {
     lumaSplats: Object3DNode<LumaSplatsThree, typeof LumaSplatsThree>;
   }
 }
+
+const mask = isMobile()
+  ? LumaSplatsSemantics.FOREGROUND
+  : LumaSplatsSemantics.ALL;
 
 export function Luma() {
   const lumaRef = useRef<LumaSplatsThree>(null);
@@ -23,7 +28,7 @@ export function Luma() {
   return (
     <lumaSplats
       ref={lumaRef}
-      semanticsMask={LumaSplatsSemantics.ALL}
+      semanticsMask={mask}
       source="https://lumalabs.ai/capture/822bac8d-70d6-404e-aaae-f89f46672c67"
       position={[0, 0, 0]}
       scale={1}
