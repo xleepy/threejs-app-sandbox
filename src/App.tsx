@@ -4,9 +4,12 @@ import { Luma } from "./Luma";
 import { Stats, OrbitControls } from "@react-three/drei";
 import "./App.css";
 
+const lowestPossibleMaxValue = Math.min(window.devicePixelRatio, 2);
+
 function App() {
   return (
-    <Canvas className="three-root">
+    // https://github.com/pmndrs/react-three-fiber/discussions/1012#discussioncomment-371393
+    <Canvas dpr={[0.5, lowestPossibleMaxValue]} className="three-root">
       {/* <ambientLight intensity={Math.PI / 2} />
       <spotLight
         position={[10, 10, 10]}
