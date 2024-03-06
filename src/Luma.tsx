@@ -23,7 +23,7 @@ export function Luma() {
   return (
     <lumaSplats
       ref={lumaRef}
-      semanticsMask={LumaSplatsSemantics.FOREGROUND}
+      semanticsMask={LumaSplatsSemantics.ALL}
       source="https://lumalabs.ai/capture/822bac8d-70d6-404e-aaae-f89f46672c67"
       position={[0, 0, 0]}
       scale={1}
