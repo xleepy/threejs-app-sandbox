@@ -25,7 +25,7 @@ export function Luma() {
       ref={lumaRef}
       semanticsMask={LumaSplatsSemantics.FOREGROUND}
       source="https://lumalabs.ai/capture/822bac8d-70d6-404e-aaae-f89f46672c67"
-      position={[-1, 0, 0]}
+      position={[0, 0, 0]}
       scale={1}
     />
   );
