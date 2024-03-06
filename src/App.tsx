@@ -10,6 +10,7 @@ import type {
   Object3DEventMap,
   Vector3,
 } from "three";
+import { Luma } from "./Luma";
 
 type BoxProps = {
   position?: Vector3;
@@ -55,7 +56,7 @@ const Box = ({ position }: BoxProps) => {
 function App() {
   return (
     <Canvas className="three-root">
-      <ambientLight intensity={Math.PI / 2} />
+      {/* <ambientLight intensity={Math.PI / 2} />
       <spotLight
         position={[10, 10, 10]}
         angle={0.15}
@@ -65,7 +66,8 @@ function App() {
       />
       <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
       <Box />
-      <Stats />
+      <Stats /> */}
+      <Luma />
     </Canvas>
   );
 }
