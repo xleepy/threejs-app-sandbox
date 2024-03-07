@@ -1,31 +1,15 @@
-// import { useCallback, useRef, useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import { Luma } from "./Luma";
-import { Stats, OrbitControls } from "@react-three/drei";
+import { lazy } from "react";
+import { Canvas } from "@react-three/offscreen";
 import "./App.css";
 
-const lowestPossibleMaxValue = Math.min(window.devicePixelRatio, 2);
+// This is the fallback component that will be rendered on the main thread
+// This will happen on systems where OffscreenCanvas is not supported
+const Scene = lazy(() => import("./AppScene"));
 
-function App() {
-  return (
-    // https://github.com/pmndrs/react-three-fiber/discussions/1012#discussioncomment-371393
-    <Canvas dpr={[0.5, lowestPossibleMaxValue]} className="three-root">
-      {/* <ambientLight intensity={Math.PI / 2} />
-      <spotLight
-        position={[10, 10, 10]}
-        angle={0.15}
-        penumbra={1}
-        decay={0}
-        intensity={Math.PI}
-      />
-      <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-      <Box />
-      */}
-      <Luma />
-      <OrbitControls />
-      <Stats />
-    </Canvas>
-  );
+const worker = new Worker(new URL("./worker.tsx", import.meta.url), {
+  type: "module",
+});
+
+export default function App() {
+  return <Canvas fallback={<Scene />} worker={worker} shadows />;
 }
-
-export default App;
