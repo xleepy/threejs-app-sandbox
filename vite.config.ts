@@ -16,5 +16,8 @@ export default defineConfig({
       target,
     },
   },
+  worker: {
+    plugins: () => [react()],
+  },
   plugins: [react()],
 });

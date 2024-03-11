@@ -1,5 +1,5 @@
 import { Luma } from "./Luma";
-import { Stats, OrbitControls } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 
 export default function AppScene() {
   return (
@@ -17,7 +17,6 @@ export default function AppScene() {
       */}
       <Luma />
       <OrbitControls />
-      <Stats />
     </mesh>
   );
 }
