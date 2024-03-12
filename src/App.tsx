@@ -1,30 +1,11 @@
-import { lazy, useCallback, useState } from "react";
-import { Canvas } from "@react-three/offscreen";
+import { useCallback, useState } from "react";
 import "./App.css";
-import RenderWorker from "./worker?worker";
-import { WebGLRenderer, WebGLRendererParameters } from "three";
+import { Canvas } from "@react-three/fiber";
+import AppScene from "./AppScene";
+import WebGPURenderer from "three/examples/jsm/renderers/webgpu/WebGPURenderer.js";
 
 // This is the fallback component that will be rendered on the main thread
 // This will happen on systems where OffscreenCanvas is not supported
-const Scene = lazy(() => import("./AppScene"));
-
-const worker = new RenderWorker();
-
-class WebGPURenderer extends WebGLRenderer {
-  private context: any | null = null;
-  constructor(params?: WebGLRendererParameters) {
-    super(params);
-    this.context = this.getContext();
-  }
-
-  public async init() {
-    const adapter = await navigator.gpu.requestAdapter();
-
-    const device = await adapter?.requestDevice();
-    this.context = this.getContext();
-    this.context.gpu = device;
-  }
-}
 
 export default function App() {
   const [frameloop, setFrameLoop] = useState<
@@ -35,6 +16,7 @@ export default function App() {
   const initGl = useCallback((canvas: HTMLCanvasElement | OffscreenCanvas) => {
     const renderer = new WebGPURenderer({
       canvas: canvas as HTMLCanvasElement,
+      antialias: false,
     });
     renderer.init().then(() => {
       setFrameLoop("always");
@@ -42,12 +24,8 @@ export default function App() {
     return renderer;
   }, []);
   return (
-    <Canvas
-      gl={initGl}
-      frameloop={frameloop}
-      fallback={<Scene />}
-      worker={worker}
-      shadows
-    />
+    <Canvas frameloop={frameloop} gl={initGl} shadows>
+      <AppScene />
+    </Canvas>
   );
 }
