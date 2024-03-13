@@ -1,14 +1,24 @@
-import { lazy } from "react";
-import { Canvas } from "@react-three/offscreen";
+import { useCallback } from "react";
 import "./App.css";
-import RenderWorker from "./worker?worker";
+import { Canvas } from "@react-three/fiber";
+import AppScene from "./AppScene";
+import { WebGLRenderer } from "three";
 
 // This is the fallback component that will be rendered on the main thread
 // This will happen on systems where OffscreenCanvas is not supported
-const Scene = lazy(() => import("./AppScene"));
-
-const worker = new RenderWorker();
 
 export default function App() {
-  return <Canvas fallback={<Scene />} worker={worker} shadows />;
+  // prevent Canvas from rerendering on each reference change
+  const initGl = useCallback((canvas: HTMLCanvasElement | OffscreenCanvas) => {
+    const renderer = new WebGLRenderer({
+      canvas: canvas as HTMLCanvasElement,
+      antialias: false,
+    });
+    return renderer;
+  }, []);
+  return (
+    <Canvas gl={initGl}>
+      <AppScene />
+    </Canvas>
+  );
 }
